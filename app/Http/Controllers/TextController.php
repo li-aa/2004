@@ -47,4 +47,7 @@ class TextController extends Controller
       $users = DB::table('user')->limit(1)->get();
         dd($users);
     }
+    public function text(){
+      
+    }
 }
