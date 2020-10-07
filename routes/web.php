@@ -25,3 +25,9 @@ Route::any('/index/edit/{id}','TextController@edit');
 Route::any('/index/update/{id}','TextController@update');
 
 Route::get('lian','TextController@lian');
+
+
+Route::any('/reg/reg','RegController@reg');
+Route::any('/reg/regdo','RegController@regdo');
+Route::any('/reg/login','RegController@login');
+Route::any('/reg/logindo','RegController@logindo');
