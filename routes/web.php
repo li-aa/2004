@@ -23,3 +23,5 @@ Route::any('/index/lists','TextController@lists');
 Route::any('/index/delete/{id}','TextController@delete');
 Route::any('/index/edit/{id}','TextController@edit');
 Route::any('/index/update/{id}','TextController@update');
+
+Route::get('lian','TextController@lian');

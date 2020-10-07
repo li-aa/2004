@@ -43,4 +43,8 @@ class TextController extends Controller
        	return redirect('/index/lists');
        }
     }
+    public function lian(){
+      $users = DB::table('user')->limit(1)->get();
+        dd($users);
+    }
 }
