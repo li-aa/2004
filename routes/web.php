@@ -31,3 +31,5 @@ Route::any('/reg/reg','RegController@reg');
 Route::any('/reg/regdo','RegController@regdo');
 Route::any('/reg/login','RegController@login');
 Route::any('/reg/logindo','RegController@logindo');
+
+Route::get('/goods/detail','GoodsController@detail');
