@@ -27,9 +27,10 @@ Route::any('/index/update/{id}','TextController@update');
 Route::get('lian','TextController@lian');
 
 
-Route::any('/reg/reg','RegController@reg');
-Route::any('/reg/regdo','RegController@regdo');
-Route::any('/reg/login','RegController@login');
-Route::any('/reg/logindo','RegController@logindo');
+Route::any('/user/regist','UserController@regist');
+Route::any('/user/regdo','UserController@regdo');
+Route::any('/user/login','UserController@login');
+Route::any('/user/logindo','UserController@logindo');
 
 Route::get('/goods/detail','GoodsController@detail');
+Route::get('/goods/lists','GoodsController@lists');

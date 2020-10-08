@@ -5,7 +5,7 @@
 	<title>Document</title>
 </head>
 <body>
-	<form action="{{url('/reg/logindo')}}" method = 'post'>
+	<form action="{{url('/user/logindo')}}" method = 'post'>
 
 		<table>
 			<tr>

@@ -5,7 +5,7 @@
 	<title>Document</title>
 </head>
 <body>
-	<form action="{{url('/reg/regdo')}}" method = 'post'>
+	<form action="{{url('/user/regdo')}}" method = 'post'>
 
 		<table>
 			<tr>
@@ -16,6 +16,20 @@
 				</td>
 			</tr>
 			<tr>
+				<td>email</td>
+				<td>
+					<input type="text" name="email">
+					<b style="color:red">{{$errors->first('email')}}</b>
+				</td>
+			</tr>
+			<tr>
+				<td>手机号</td>
+				<td>
+					<input type="text" name="tel">
+					<b style="color:red">{{$errors->first('tel')}}</b>
+				</td>
+			</tr>
+			<tr>
 				<td>密码</td>
 				<td>
 					<input type="password" name="password">
@@ -23,10 +37,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td>email</td>
+				<td>确认密码</td>
 				<td>
-					<input type="text" name="email">
-					<b style="color:red">{{$errors->first('email')}}</b>
+					<input type="password" name="pwd">
+					<b style="color:red">{{$errors->first('pwd')}}</b>
 				</td>
 			</tr>
 			<tr>
