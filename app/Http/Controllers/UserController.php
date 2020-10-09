@@ -38,11 +38,6 @@ class UserController extends Controller
         $pwd = $_POST['password'];
         $error_key = 'error_count_'.$user_name;
         $error_count = Redis::get($error_key);
-
-        $where =[
-            ['password','=',$pwd],
-        ];
-        $user_obj = PuserModel::where($where)->first();
         // dd($user_obj)
         if($error_count >= 5){
             $expire = Redis::ttl($error_key);
@@ -61,7 +56,12 @@ class UserController extends Controller
              $user = DB::table('p_user')->where('user_name',$res1->user_name)->update(['hei'=>2]);
             echo('账号已被拉入黑名单'.$msg.'后解锁');exit;
         }
-        if($pwd != $user_obj){
+        $admin=PuserModel::where(['user_name'=>$user_name])
+            ->orWhere(['email'=>$user_name])
+            ->orWhere(['tel'=>$user_name])
+            ->first();
+        $p=password_verify($pwd,$admin->password);
+        if(!$p){
           if($error_count < 5){
                 Redis::incr($error_key);
             }
@@ -69,22 +69,17 @@ class UserController extends Controller
                 Redis::expire($error_key,60*120);
             }
             $count = $error_count +1;
-            echo "密码错误次数为".$count."次";exit;
-        }else{
-            #密码输入正确 错误次数清0
-            if($error_count <5 ){
-                Redis::del($error_key);
-         
-        }
-        echo "密码错误";
-      }
-      
-      // $res = DB::table('p_user')->first();
-      // $user_name = DB::table('p_user')->where("uid",$res->uid)->update($date);
-      // if($res){
-      //   echo "登录成功";
+            echo "密码错误次数为".$count."次";
+            }else{
+              $res = DB::table('p_user')->first();
+              $user_name = DB::table('p_user')->where("uid",$res->uid)->update($date);
+              if($res){
+                  echo "登录成功";
        
-      //  }
+                }
+            }
+      
+      
     }
   
 }
