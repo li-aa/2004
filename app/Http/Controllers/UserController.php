@@ -7,6 +7,7 @@ use DB;
 use App\Http\Models\PuserModel;
 use Validator;
 use Illuminate\Support\Facades\Redis;
+use Cookie;
 class UserController extends Controller
 {
     public function regist(){
@@ -51,7 +52,7 @@ class UserController extends Controller
                 $minutes = intval(($expire - 3600)/ 60);
                 $msg = $hour .'小时' . $minutes .'分钟';
             }
-             $error = Redis::set('aa',$user_name);
+             $error = Redis::set('qq',$user_name);
              $res1 = DB::table('p_user')->first();
              $user = DB::table('p_user')->where('user_name',$res1->user_name)->update(['hei'=>2]);
             echo('账号已被拉入黑名单'.$msg.'后解锁');exit;
@@ -70,16 +71,29 @@ class UserController extends Controller
             }
             $count = $error_count +1;
             echo "密码错误次数为".$count."次";
-            }else{
+            }
+      
               $res = DB::table('p_user')->first();
               $user_name = DB::table('p_user')->where("uid",$res->uid)->update($date);
               if($res){
+                session_start();
+                  setcookie('uid',$admin->uid,time()+3600,'/');
+                  setcookie('user_name',$admin->user_name,time()+3600,'/');
+                  header('refresh:2;url=/user/center');
                   echo "登录成功";
-       
                 }
-            }
-      
-      
     }
-  
+            public function center(){
+                if(isset($_COOKIE['uid']) && isset($_COOKIE['user_name'])){
+                    return view('/user/center');
+                }else{
+                  return redirect('/user/login');
+            }
+   
+  }
+            public function quit(){
+              Cookie::queue(Cookie::forget('uid'));
+              Cookie::queue(Cookie::forget('user_name'));
+               return redirect('/user/login');
+            }
 }
