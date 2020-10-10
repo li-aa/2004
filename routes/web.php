@@ -31,6 +31,8 @@ Route::any('/user/regist','UserController@regist');
 Route::any('/user/regdo','UserController@regdo');
 Route::any('/user/login','UserController@login');
 Route::any('/user/logindo','UserController@logindo');
+Route::any('/user/center','UserController@center');
+Route::any('/user/quit','UserController@quit');
 
 Route::get('/goods/detail','GoodsController@detail');
 Route::get('/goods/lists','GoodsController@lists');
