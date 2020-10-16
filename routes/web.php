@@ -25,7 +25,7 @@ Route::any('/index/edit/{id}','TextController@edit');
 Route::any('/index/update/{id}','TextController@update');
 
 Route::get('lian','TextController@lian');
-
+Route::get('goods','TextController@goods');
 
 Route::any('/user/regist','UserController@regist');
 Route::any('/user/regdo','UserController@regdo');
@@ -36,3 +36,4 @@ Route::any('/user/quit','UserController@quit');
 
 Route::get('/goods/detail','GoodsController@detail');
 Route::get('/goods/lists','GoodsController@lists');
+

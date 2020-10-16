@@ -70,7 +70,7 @@ class UserController extends Controller
                 Redis::expire($error_key,60*120);
             }
             $count = $error_count +1;
-            echo "密码错误次数为".$count."次";
+            echo "密码错误次数为".$count."次";exit;
             }
       
               $res = DB::table('p_user')->first();
@@ -94,6 +94,8 @@ class UserController extends Controller
             public function quit(){
               Cookie::queue(Cookie::forget('uid'));
               Cookie::queue(Cookie::forget('user_name'));
-               return redirect('/user/login');
+               header('refresh:2;url=/user/login');
+                  echo "退出成功";
+               // return redirect('/user/login');
             }
 }
