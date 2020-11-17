@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use GuzzleHttp\Client;
 use App\Http\Models\UserModel;
 use App\Http\Models\GoodsModel;
 use Illuminate\Support\Facades\Redis;
@@ -90,5 +91,51 @@ class TextController extends Controller
         ];
         // return view('goods.detail',$data);
 
+    }
+    public function good(){
+        $uri="https://devapi.qweather.com/v7/weather/now?location=101010700&key=4fdc691ce1494fa6a3ab6d12721ad263&gzip=n";
+        $json_str=file_get_contents($uri);
+        $data=json_decode($json_str);
+        echo '<pre>';print_r($data);echo '</pre>';
+    }
+    public function text1(){
+        $uri="https://devapi.qweather.com/v7/weather/now?location=101010700&key=4fdc691ce1494fa6a3ab6d12721ad263&gzip=n";
+        // 创建一个新cURL资源
+        $ch = curl_init();
+
+        // 设置URL和相应的选项
+        curl_setopt($ch, CURLOPT_URL, $uri);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        //关闭HTTPS验证
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+        // 抓取URL并把它传递给浏览器
+        $json_str=curl_exec($ch);
+
+        //捕获错误
+        $err_no=curl_errno($ch);
+        if($err_no){
+            $err_msg =curl_error($ch);
+            echo "错误信息：".$err_msg;
+            die;
+        }
+        
+        // 关闭cURL资源，并且释放系统资源
+        curl_close($ch);
+
+        $data =json_decode($json_str,true);
+        echo '<pre>';print_r($data);echo '</pre>';
+    }
+    public function test(){
+        $uri="https://devapi.qweather.com/v7/weather/now?location=101010700&key=4fdc691ce1494fa6a3ab6d12721ad263&gzip=n";
+        $client = new Client();
+        $res = $client->request('GET',$uri, ['verify' =>false]);
+        $bady = $res->getBody();
+        // dd($response);
+        $data = json_decode($bady);
+        print_r($data);
     }
 }
