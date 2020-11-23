@@ -41,4 +41,7 @@ Route::any('/user/quit','UserController@quit');
 Route::get('/goods/detail','GoodsController@detail');
 Route::get('/goods/lists','GoodsController@lists');
 
-Route::get('/code','XcxController@login');
+Route::post('/code','XcxController@login');
+Route::get('/xuan','XcxController@xuan');
+Route::get('/chu','XcxController@chu');
+Route::get('/detail','XcxController@detail');
